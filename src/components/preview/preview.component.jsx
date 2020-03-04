@@ -2,7 +2,6 @@ import React from 'react'
 import './preview.styles.scss'
 import { PreviewItem } from '../preview-item/preview-item.component'
 
-
 const Preview = ({title, items}) => (
     <div className='preview-collection'>
         <h1 className='title'>{title.toUpperCase()}</h1>
@@ -13,7 +12,7 @@ const Preview = ({title, items}) => (
                 <PreviewItem key={item.id} {...item}/>
             ))}
         </div>
-    </div> 
+    </div>    
 )
 
 export default Preview

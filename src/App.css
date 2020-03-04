@@ -40,3 +40,8 @@
 body {
     font-family: "Open Sans Condensed", sans-serif;
 }
+
+a {
+    color: black;
+    text-decoration: none;
+}

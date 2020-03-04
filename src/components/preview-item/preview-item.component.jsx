@@ -1,5 +1,7 @@
 import React from 'react'
 
+import './preview-item.styles.scss'
+
 export const PreviewItem = ({imageUrl, name, price}) => {
     return (
         <div className='preview-tile'> 
