@@ -2,22 +2,40 @@ import React, { Component } from 'react'
 import './signupform.styles.scss'
 import { FormInput } from '../form-input/form-input.component'
 import { CustomButton } from '../button/button.component'
+import { auth, createUserDocument } from '../../firebase/firebase.utils'
+
 export default class SignUpForm extends Component {
     constructor (props){
         super(props)
         this.state = {
-            name: '',
+            displayName: '',
             email: '',
             password: '',
             confirmpassword: ''
         }
     }
 
-    handleSubmit = event => {
+    handleSubmit = async event => {
         event.preventDefault()
-        this.setState({email: '', password: ''})
-        if (this.state.password === this.state.confirmpassword) {
-            console.log('signed up')
+        const {displayName, email, password, confirmpassword} = this.state
+        if (password !== confirmpassword) {
+            alert("Passwords don't match")
+            return; 
+        } 
+
+        try {
+            let {user} = await auth.createUserWithEmailAndPassword(email, password)
+            
+            await createUserDocument(user, {displayName})
+
+            this.setState({
+                displayName: '',
+                email: '',
+                password: '',
+                confirmpassword: ''
+            })
+        } catch (error) {
+            console.log('error', error.message)
         }
     }
 
@@ -32,12 +50,12 @@ export default class SignUpForm extends Component {
             <div className='signup'>
                 <h2>I don't have an account</h2>
                 <p>Sign up with your email and password</p>
-                <form className='signupform'>
+                <form className='signupform' onSubmit={this.handleSubmit}>
                     <FormInput 
-                        name='name' 
+                        name='displayName' 
                         type='text' 
                         handleChange={this.handleChange} 
-                        value={this.state.name}
+                        value={this.state.displayName}
                         label='Name'
                     />
                     <FormInput 
