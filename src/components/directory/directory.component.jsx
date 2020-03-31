@@ -53,5 +53,6 @@ export class Directory extends React.Component {
             </div>
         )
     }
+    // maps the data in the state to menuItem components, these are then displayed on screen. 
 }
 

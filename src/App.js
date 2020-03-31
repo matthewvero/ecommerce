@@ -1,63 +1,74 @@
-import React from 'react';
-import './App.css';
-import HomePage from './pages/homepage/homepage.component'
-import ShopPage from './pages/shop/shop.component'
-import {Route, Switch} from 'react-router-dom'
-import { Header } from './components/header/header.component';
-import { SignInPage } from './pages/signin/sign-in-page.component';
-import { auth, createUserDocument } from '../src/firebase/firebase.utils'
+import React from "react";
+import "./App.css";
+import HomePage from "./pages/homepage/homepage.component";
+// Import component
+import ShopPage from "./pages/shop/shop.component";
+// Import component
+import { Route, Switch } from "react-router-dom";
+// Gives us access to routing components from react router
+import Header from "./components/header/header.component";
+// Import Header component
+import { SignInPage } from "./pages/signin/sign-in-page.component";
+// Import sign in page component
+import { auth, createUserDocument } from "../src/firebase/firebase.utils";
+// Gives us access to the firebase auth, which controls auth and auth methods
+import {connect} from 'react-redux'
+import {setCurrentUser} from './redux/user/user.actions'
 
 class App extends React.Component {
-  constructor() {
-    super()
-    this.state = {
-      currentUser: null
-     }
-  }
 
-  unsubscribeFromAuth = null;
+    unsubscribeFromAuth = null;
 
-  componentDidMount() {
-    this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
-      if (userAuth) {
-        const userRef = await createUserDocument(userAuth)
-
-        userRef.onSnapshot(snapShot => {
-          this.setState({
-            currentUser: {
-              id: snapShot.id,
-              ...snapShot.data()
+    componentDidMount() {
+        const {setCurrentUser} = this.props
+        this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
+            // Listens for change in auth state
+            if (userAuth) {
+                const userRef = await createUserDocument(userAuth);
+                // If a new user has been created adds it to database
+                // Once complete or if user exists, returns userRef
+                userRef.onSnapshot(snapShot => {
+                    // Listens for change in user data
+                    setCurrentUser({
+                                id: snapShot.id,
+                                ...snapShot.data()
+                            },
+                        // Sets current user information
+                        // Using data from firestore
+                        () => console.log(this.state)
+                    );
+                });
+            } else {
+                setCurrentUser(userAuth);
+                // If no user then sets user to null
             }
-          }, () => console.log(this.state))
-        })
+        });
+    }
 
-      } else {
+    componentWillUnmount() {
+        this.unsubscribeFromAuth();
+        // Ensures no memory leaks
+    }
 
-        this.setState({currentUser: userAuth});
-        
-      }
-      
-    }) 
-  }
-
-  componentWillUnmount() {
-    this.unsubscribeFromAuth()
-  }
-
-  render () {
-    return (
-      <div className="App">
-        <Header user={this.state.currentUser} />
-        <Switch>
-          <Route exact path='/' component={HomePage}/>
-          <Route exact path='/shop/' component={ShopPage}/>
-          <Route exact path='/signin' component={SignInPage}/>
-        </Switch>
-      </div>
-    )
-  }
+    render() {
+        return (
+            <div className="App">
+                <Header/>
+                <Switch>
+                    <Route exact path="/" component={HomePage} />
+                    <Route exact path="/shop/" component={ShopPage} />
+                    <Route exact path="/signin" component={SignInPage} />
+                </Switch>
+            </div>
+        );
+    }
 }
 
+const mapDispatchToProps = dispatch => ({
+    setCurrentUser: user => dispatch(setCurrentUser(user))
+}) // Here we are creating a function that dispatches 
+// The value returned from our setCurrentUser action 
+// To the reducers and by extension the store.
 
+export default connect(null, mapDispatchToProps)(App);
 
-export default App;
