@@ -13,9 +13,6 @@
         display: flex;
         flex-direction: row;
         justify-content: space-between;
-        :last-child {
-            margin-right: 0px;
-        }
     }
 
     .navItem {
@@ -31,5 +28,9 @@
         &:hover {
             background-color: #aaaaaa;
         }
+    }
+
+    .basket {
+        padding-top: 10px;
     }
 }

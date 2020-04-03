@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./signinform.styles.scss";
 import { FormInput } from "../form-input/form-input.component";
 // Custom form input, fuction can be changed
-import { CustomButton } from "../button/button.component";
+import CustomButton from "../button/button.component";
 //Custom button component, function can be changed to suit needs
 import { signInWithGoogle, auth } from "../../firebase/firebase.utils";
 // Allows us to use auth utilities to sign in with google

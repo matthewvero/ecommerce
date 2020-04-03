@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./signupform.styles.scss";
 import { FormInput } from "../form-input/form-input.component";
 // Custom form input, fuction can be changed
-import { CustomButton } from "../button/button.component";
+import CustomButton from "../button/button.component";
 // Custom button, the function can be set dynamically
 import { auth, createUserDocument } from "../../firebase/firebase.utils";
 // Auth utility import and create new user utility

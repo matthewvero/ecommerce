@@ -7,9 +7,23 @@
     background-color: cornflowerblue;
     padding: 15px 20px;
 }
+.checkout-button {
+    margin: 20px 20px 20px 20px;
+    background-color: white;
+    border: black 1px solid;
+    color: black;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    &:hover {
+        background-color: black;
+        color: white;
+        padding: 15px 40px;
+    }
+}
 
 button {
     min-width: 150px;
+    cursor: pointer;
     &:hover {
         background-color: white;
         border: black 1px solid;
