@@ -20,7 +20,7 @@ const BasketWindow = ({basketItems}) => (
                     </div>
                 ))}
             </div>
-            <CustomButton classes='checkout-button'>Go To Checkout</CustomButton>
+            <CustomButton inverted cartButton >Go To Checkout</CustomButton>
             </div> 
     )
 

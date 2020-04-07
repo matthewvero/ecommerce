@@ -8,6 +8,10 @@
     width: 30vw;
     height: 25vw;
 
+    &:hover .preview-background {
+        opacity: 0.8;
+    }
+
     .info {
         display: flex;
         flex-direction: row;
@@ -25,25 +29,7 @@
         margin: 5px 0;
     }
 
-    &:hover .add-cart {
+    &:hover .custom-button {
         display: block;
-    }
-
-    .add-cart {
-        display: none;
-        position: absolute;
-        width: 80%;
-        background-color: white;
-        opacity: 0.7;
-        top: 60%;
-        align-self: center;
-        h3 {
-            margin: 15px 0px;
-        }
-        &:hover {
-            background-color: black;
-            color: white;
-            cursor: pointer;
-        }
     }
 }

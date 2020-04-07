@@ -4,8 +4,7 @@ import React from 'react'
 import './preview-item.styles.scss'
 import { addBasketItem } from '../../redux/basket/basket.actions'
 import { connect } from 'react-redux'
-import { prettyDOM } from '@testing-library/react'
-import Preview from '../preview/preview.component'
+import CustomButton from '../button/button.component'
 
 const PreviewItem = ({id, imageUrl, name, price, addBasketItem}) => {
     const item = {
@@ -21,9 +20,12 @@ const PreviewItem = ({id, imageUrl, name, price, addBasketItem}) => {
                 className='preview-background' 
                 style={{backgroundImage: `url(${imageUrl})`}}
             />
-            <div className='add-cart' onClick={() =>addBasketItem(item)}>
-                <h3>Add To Cart</h3> 
-            </div>
+            <CustomButton 
+                inverted 
+                cartButton 
+                addToCart 
+                onClick={() => addBasketItem(item)}
+            > Add To Cart </CustomButton>
             <div className='info'>
                 <h4> {name} </h4>
                 <h4> {price} </h4>
@@ -37,3 +39,4 @@ const mapDispatchToProps = dispatch => ({
 })
 
 export default connect(null, mapDispatchToProps)(PreviewItem)
+
