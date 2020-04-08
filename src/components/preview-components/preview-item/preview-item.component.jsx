@@ -2,9 +2,9 @@ import React from 'react'
 
 
 import './preview-item.styles.scss'
-import { addBasketItem } from '../../redux/basket/basket.actions'
+import { addBasketItem } from '../../../redux/basket/basket.actions'
 import { connect } from 'react-redux'
-import CustomButton from '../button/button.component'
+import CustomButton from '../../button/button.component'
 
 const PreviewItem = ({id, imageUrl, name, price, addBasketItem}) => {
     const item = {

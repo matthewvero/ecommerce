@@ -1,7 +1,7 @@
 import { createBasketArr } from './basket.utils'
 
 const initialState = {
-    isVisible: false,
+    hidden: true,
     basketItems: []
 }
 
@@ -11,7 +11,7 @@ export const basketReducer = (state = initialState, { type, payload }) => {
     case 'SET_VISIBLE_STATE':
         return { 
             ...state, 
-            isVisible: !state.isVisible
+            hidden: !state.hidden
         }
     
     case 'ADD_ITEM_TO_CART':

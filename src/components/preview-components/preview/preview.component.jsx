@@ -1,6 +1,6 @@
 import React from 'react'
 import './preview.styles.scss'
-import PreviewItem from '../preview-item/preview-item.component'
+import {PreviewItem} from '../preview-index'
 
 const Preview = ({title, items}) => (
     <div className='preview-collection'>

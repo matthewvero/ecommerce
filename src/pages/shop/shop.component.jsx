@@ -1,7 +1,7 @@
 import React from 'react';
 // import { render } from 'node-sass';
 import data from './shop.data'
-import Preview from '../../components/preview/preview.component';
+import {Preview} from '../../components/preview-components/preview-index';
 
 
 

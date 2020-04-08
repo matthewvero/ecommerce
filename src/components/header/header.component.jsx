@@ -6,8 +6,9 @@ import "./header.styles.scss";
 import { ReactComponent as Logo } from "./crown.svg";
 // Allows us to use an svg
 import { auth } from "../../firebase/firebase.utils";
-import Basket from "../basket/basket.component";
 // Gives access to the auth utilities.
+import {Basket} from "../basket-components/basket-index"
+
 const Header = ({ currentUser }) => {
     return (
         <div className="header">
