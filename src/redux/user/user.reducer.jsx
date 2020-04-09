@@ -1,4 +1,5 @@
 import { userActionTypes } from "./user.types";
+import { createSelector } from 'reselect'
 
 const INITIAL_STATE = {
     currentUser: null
@@ -20,3 +21,12 @@ export const userReducer = (state = INITIAL_STATE, action) => {
             return state;
     }
 };
+
+// SELECTORS
+
+const selectUserState = state => state.user;
+
+export const selectCurrentUser = createSelector(
+    [selectUserState],
+    state => state.currentUser
+)

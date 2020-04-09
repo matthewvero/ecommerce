@@ -1,0 +1,10 @@
+.basket-list {
+    overflow: scroll;
+    height: 75%;
+    margin: 20px 20px 0 20px;
+
+    &.checkout {
+        margin: 0;
+        width: 100%;
+    }
+}

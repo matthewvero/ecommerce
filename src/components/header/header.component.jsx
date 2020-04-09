@@ -7,7 +7,9 @@ import { ReactComponent as Logo } from "./crown.svg";
 // Allows us to use an svg
 import { auth } from "../../firebase/firebase.utils";
 // Gives access to the auth utilities.
-import {Basket} from "../basket-components/basket-index"
+import { Basket } from "../basket-components/basket-index";
+import { selectCurrentUser } from "../../redux/user/user.reducer";
+import { createStructuredSelector } from "reselect";
 
 const Header = ({ currentUser }) => {
     return (
@@ -37,9 +39,8 @@ const Header = ({ currentUser }) => {
         </div>
     );
 };
-
-const mapStateToProps = state => ({
-    currentUser: state.user.currentUser
+const mapStateToProps = createStructuredSelector({
+    currentUser: selectCurrentUser
 });
 // This tells connect which data it needs to retrieve
 // and return from the root reducer
