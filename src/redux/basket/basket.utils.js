@@ -14,3 +14,17 @@ export const createBasketArr = (basketItems, itemToAdd) => {
         return [...basketItems, { ...itemToAdd, key: basketItems.length + 1 }];
     }
 };
+
+export const incrementer = (state, payload) => {
+    return state.basketItems.map(item => {
+        if (item.id === payload.id) {
+            return {
+                ...item,
+                quantity: payload.operation === '+' ? item.quantity += 1 : item.quantity -= 1
+
+            }
+        } else {
+            return item
+        }
+    })
+}

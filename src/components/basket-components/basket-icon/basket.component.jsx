@@ -24,14 +24,14 @@ const isBasketEmpty = (hidden, items) => {
     }
 };
 
-const Basket = ({ toggleBasket, hidden, basketItems, itemCount }) => {
+const Basket = ({ hidden, basketItems, itemCount, dispatch }) => {
     return (
         <div className="basket-container">
             <FontAwesomeIcon
                 className={`navItem ${isBasketEmpty(hidden, basketItems)}`}
                 id="basket"
                 icon={faShoppingBasket}
-                onClick={toggleBasket}
+                onClick={() => dispatch(setVisibility())}
             />
 
             <BasketCounter basketCount={itemCount} />
@@ -41,14 +41,10 @@ const Basket = ({ toggleBasket, hidden, basketItems, itemCount }) => {
     );
 };
 
-const mapDispatchToProps = dispatch => ({
-    toggleBasket: () => dispatch(setVisibility())
-});
-
 const mapStateToProps = createStructuredSelector({
     hidden: selectBasketHidden,
     basketItems: selectBasketItems,
     itemCount: getBasketItemCount
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Basket);
+export default connect(mapStateToProps)(Basket);

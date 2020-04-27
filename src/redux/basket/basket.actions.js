@@ -6,3 +6,13 @@ export const addBasketItem = (payload) => ({
     type: 'ADD_ITEM_TO_CART',
     payload: payload
 })
+
+export const incrementQuantity = (payload) => ({
+    type: 'INCREMENT_QUANTITY',
+    payload: payload 
+})
+
+export const removeItem = (payload) => ({
+    type: 'REMOVE_BASKET_ITEM', 
+    payload: payload
+})

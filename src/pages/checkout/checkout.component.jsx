@@ -1,5 +1,5 @@
 import React from 'react'
-import { BasketList } from '../../components/basket-components/basket-index'
+import { BasketList, BasketTotal } from '../../components/basket-components/basket-index'
 import './checkout.styles.scss'
 
 const Checkout = () => {
@@ -13,7 +13,7 @@ const Checkout = () => {
                 <span>Remove</span>
             </div>
             <BasketList checkout={true}/>
-            
+            <BasketTotal className='total'/>
         </div>
     )
 }

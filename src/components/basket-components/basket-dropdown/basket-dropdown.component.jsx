@@ -3,13 +3,26 @@ import {withRouter} from 'react-router-dom'
 import "./basket-window.styles.scss";
 import CustomButton from "../../button/button.component";
 import { BasketList } from "../basket-index";
-const BasketWindow = ({ history }) => (
-    <div className="basket-menu">
-        <BasketList/>
-        <CustomButton inverted cartButton onClick={() => history.push('/checkout')}>
-            Go To Checkout
-        </CustomButton>
-    </div>
-);
+import { connect } from "react-redux";
+import { setVisibility } from "../../../redux/basket/basket.actions";
 
-export default withRouter(BasketWindow)
+export class BasketWindow extends React.Component {
+    handleClick = () => {
+        this.props.dispatch(setVisibility())
+        this.props.history.push('/checkout') 
+    }
+    
+
+    render() {
+        return (
+            <div className="basket-menu">
+                <BasketList/>§
+                <CustomButton inverted cartButton onClick={this.handleClick}>
+                    Go To checkout
+                </CustomButton>
+            </div>
+        )
+    }
+}
+
+export default withRouter( connect()(BasketWindow))

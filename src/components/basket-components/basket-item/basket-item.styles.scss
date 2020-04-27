@@ -22,6 +22,7 @@
     .title {
         text-transform: uppercase;
     }
+    text-align: start;
 }
 
 .checkout-item {
@@ -36,7 +37,7 @@
     border-bottom: grey 1px solid;
     .checkout-item-image {
         width: 150px;
-        height: 150px;
+        height: 180px;
         background-position: center;
         background-size: cover;
         background-repeat: no-repeat;
@@ -47,14 +48,8 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
+        align-items: center;
         font-size: 1.2rem;
         font-weight: 500;
-        &.quantity {
-            flex-direction: row;
-            align-items: center;
-            .icon {
-                padding: 15px 10px;
-            }
-        }
     }
 }

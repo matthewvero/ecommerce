@@ -1,11 +1,11 @@
 import React from 'react'
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
+
 
 import './basket-item.styles.scss'
+import { BasketQuantity, BasketRemover } from '../basket-index'
 
-export const BasketItem = ({imageUrl, name, quantity, price, checkout}) => {
-
+export const BasketItem = ({id, imageUrl, name, quantity, price, checkout}) => {
+    console.log(checkout)
     if (checkout) {
         return (
             <div className='checkout-item'>
@@ -16,31 +16,27 @@ export const BasketItem = ({imageUrl, name, quantity, price, checkout}) => {
                 <div className='checkout-item-component'>
                     <span className='checkout-title'> {name} </span> 
                 </div>
-                <div className='checkout-item-component quantity'>
-                    <FontAwesomeIcon icon={faChevronLeft} className='icon'/>
-                    <span>{quantity}</span>
-                    <FontAwesomeIcon icon={faChevronRight} className='icon'/>
-                </div>
+                <BasketQuantity className='checkout-item-component' id={id} quantity={quantity}/>
                 <div className='checkout-item-component'>
                     <span>£{price}</span>
                 </div>
                 <div className='checkout-item-component'>
-                    <span>X</span>
+                    <BasketRemover  id={id}/> 
                 </div>
             </div>
             )
-        } else {
-            return (
-                <div className='basket-item'>
-                    <div 
-                        className='basket-item-image' 
-                        style={{backgroundImage: `url(${imageUrl})`}}
-                    />
-                    <div className='basket-item-content'>
-                        <span className='title'> {name} </span> 
-                        <span className='price'>{quantity} X £{price} </span>
-                    </div>
+    } else {
+        return (
+            <div className='basket-item'>
+                <div 
+                    className='basket-item-image' 
+                    style={{backgroundImage: `url(${imageUrl})`}}
+                />
+                <div className='basket-item-content'>
+                    <span className='title'> {name} </span> 
+                    <span className='price'>{quantity} X £{price} </span>
                 </div>
-                )
-        }
+            </div>
+        )
+    }
 }
