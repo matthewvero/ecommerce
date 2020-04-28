@@ -1,4 +1,4 @@
-export const createBasketArr = (basketItems, itemToAdd) => {
+export const createBasketArr = ({basketItems}, itemToAdd) => {
     let matchIndex = basketItems.find(element => element.id === itemToAdd.id);
     // Checks if item already exists in basket
     if (matchIndex) {
@@ -21,10 +21,29 @@ export const incrementer = (state, payload) => {
             return {
                 ...item,
                 quantity: payload.operation === '+' ? item.quantity += 1 : item.quantity -= 1
-
             }
         } else {
             return item
         }
-    })
+    }).filter(item => item.quantity > 0)
 }
+
+export const remover = ({basketItems}, id) => {
+    const item = basketItems.find(el => el.id === id)
+    if (item) {
+        return basketItems.filter(el => el.id !== id)
+    } else {
+        return basketItems
+    }
+}
+
+export const localStorageHandler = (func, state, payload) => {
+    let newArr = func(state, payload)
+    window.localStorage.setItem('basketContent', JSON.stringify(newArr))
+    return newArr
+}
+
+export const localStorageBasket = () => {
+    const data = JSON.parse(window.localStorage.getItem('basketContent'))
+    return data ? [...data] : []
+} 

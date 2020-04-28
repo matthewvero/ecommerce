@@ -41,7 +41,7 @@ class BasketList extends React.Component {
                         <BasketItem key={el.key} checkout={checkout} {...el}/>
                         )) 
                         : 'Basket Empty'
-                    }
+                }
                 </div>
             )
         }

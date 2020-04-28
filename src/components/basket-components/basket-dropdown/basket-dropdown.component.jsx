@@ -16,7 +16,7 @@ export class BasketWindow extends React.Component {
     render() {
         return (
             <div className="basket-menu">
-                <BasketList/>§
+                <BasketList/>
                 <CustomButton inverted cartButton onClick={this.handleClick}>
                     Go To checkout
                 </CustomButton>

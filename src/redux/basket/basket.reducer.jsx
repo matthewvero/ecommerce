@@ -1,18 +1,9 @@
-import { createBasketArr, incrementer } from './basket.utils';
+import { createBasketArr, incrementer, localStorageHandler, remover, localStorageBasket } from './basket.utils';
 import { createSelector } from 'reselect';
 
 const initialState = {
     hidden: true,
-    basketItems: []
-}
-
-const remover = ({basketItems}, id) => {
-    const item = basketItems.find(el => el.id === id)
-    if (item) {
-        return basketItems.filter(el => el.id !== id)
-    } else {
-        return basketItems
-    }
+    basketItems: localStorageBasket()
 }
 
 export const basketReducer = (state = initialState, { type, payload }) => {
@@ -27,17 +18,17 @@ export const basketReducer = (state = initialState, { type, payload }) => {
     case 'ADD_ITEM_TO_CART':
         return {
             ...state,
-            basketItems: createBasketArr(state.basketItems, payload)
+            basketItems: localStorageHandler(createBasketArr, state, payload)
         }
     case 'INCREMENT_QUANTITY':
         return {
             ...state,
-            basketItems: incrementer(state, payload)
+            basketItems: localStorageHandler(incrementer, state, payload)
         }
     case 'REMOVE_BASKET_ITEM': 
         return {
             ...state, 
-            basketItems: remover(state, payload)
+            basketItems: localStorageHandler(remover, state, payload)
         }
 
     default:

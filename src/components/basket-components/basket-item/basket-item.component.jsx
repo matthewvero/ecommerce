@@ -5,7 +5,6 @@ import './basket-item.styles.scss'
 import { BasketQuantity, BasketRemover } from '../basket-index'
 
 export const BasketItem = ({id, imageUrl, name, quantity, price, checkout}) => {
-    console.log(checkout)
     if (checkout) {
         return (
             <div className='checkout-item'>

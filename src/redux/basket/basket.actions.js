@@ -7,7 +7,7 @@ export const addBasketItem = (payload) => ({
     payload: payload
 })
 
-export const incrementQuantity = (payload) => ({
+export const adjustQuantity = (payload) => ({
     type: 'INCREMENT_QUANTITY',
     payload: payload 
 })
