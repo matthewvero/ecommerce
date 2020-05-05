@@ -27,6 +27,8 @@ class BasketList extends React.Component {
               return basketItemList.map(el => {
                 el.props.checkout = 'true'
           })
+        } else {
+          return null
         }
           
       }

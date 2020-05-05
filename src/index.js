@@ -8,12 +8,19 @@ import { BrowserRouter } from "react-router-dom";
 // Allows the app to access the browser history api
 // This allows us to use back/forward on single page apps etc
 import { Provider } from "react-redux";
-import store from "./redux/store";
 // Allows our components to access the store anywhere in the app.
+
+import { PersistGate } from 'redux-persist/integration/react'
+import { persistor, store } from './redux/store'
+// Allows us to access redux-persist which will allow us to cache the state 
+// On the local storage
+
 ReactDOM.render(
     <Provider store={store}>
         <BrowserRouter>
+        <PersistGate persistor={persistor}>
             <App />
+        </PersistGate>
         </BrowserRouter>
     </Provider>,
     document.getElementById("root")

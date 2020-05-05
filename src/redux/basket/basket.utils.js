@@ -36,14 +36,3 @@ export const remover = ({basketItems}, id) => {
         return basketItems
     }
 }
-
-export const localStorageHandler = (func, state, payload) => {
-    let newArr = func(state, payload)
-    window.localStorage.setItem('basketContent', JSON.stringify(newArr))
-    return newArr
-}
-
-export const localStorageBasket = () => {
-    const data = JSON.parse(window.localStorage.getItem('basketContent'))
-    return data ? [...data] : []
-} 

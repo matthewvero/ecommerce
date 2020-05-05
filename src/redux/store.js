@@ -1,18 +1,21 @@
-import {createStore, applyMiddleware} from 'redux'
+import { createStore, applyMiddleware } from "redux";
+import { persistStore } from "redux-persist";
 
-import logger from 'redux-logger'
-// Logger logs the state to the console in each 
+import logger from "redux-logger";
+// Logger logs the state to the console in each
 // stage so that we can see what is going on
 
-import rootReducer from './root-reducer'
+import rootReducer from "./root-reducer";
 // Import our root reducer so that it can interact with our store
 
-const middlewares = [logger]
-// Create an array of any middlewares that we want to run 
+const middlewares = [logger];
+// Create an array of any middlewares that we want to run
 // These can then be spread in to applyMiddleware from redux
 
-const store = createStore(rootReducer, applyMiddleware(...middlewares))
+export const store = createStore(rootReducer, applyMiddleware(...middlewares));
 // Creates a store and passes in the root reducer
 //  and the middleware we want to use on it
-export default store
 
+export const persistor = persistStore(store);
+
+export default { store, persistor };
