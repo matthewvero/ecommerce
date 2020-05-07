@@ -1,7 +1,7 @@
 .basket-menu {
     width: 300px;
     height: 400px;
-    border: solid black 1px;
+    box-shadow: slategrey 0px 0px 10px;
     display: flex;
     flex-direction: column;
     position: fixed;
@@ -12,4 +12,16 @@
     .button {
         padding: 20px;
     }
+}
+
+.example-appear {
+    opacity: 0;
+    transform: scaleY(0);
+    transform-origin: top;
+}
+
+.example-appear.example-appear-active {
+    opacity: 1;
+    transform: scaleY(1);
+    transition: transform 0.1s ease-in;
 }

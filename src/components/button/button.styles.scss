@@ -1,7 +1,10 @@
 .custom-button {
     background-color: black;
     color: white;
-    padding: 15px 40px;
+    padding: 5% 15%;
+    vertical-align: middle;
+    box-sizing: content-box;
+    min-height: 20px;
 }
 .googlesigninbutton {
     background-color: cornflowerblue;
@@ -29,13 +32,14 @@
     font-size: 0.9rem;
     opacity: 0.7;
     border: none;
-    padding: 10px 20px;
+    width: 60%;
+    margin: 5% 15%;
+    padding: 5% 5%;
     bottom: 30px;
     display: none;
 }
 
 button {
-    min-width: 150px;
     cursor: pointer;
     &:hover {
         background-color: white;

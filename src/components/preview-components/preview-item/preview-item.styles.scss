@@ -2,11 +2,9 @@
     display: flex;
     flex-direction: column;
     margin: 10px;
-    justify-content: center;
     position: relative;
     width: 30vw;
     height: 25vw;
-
     &:hover .preview-background {
         opacity: 0.8;
     }
@@ -22,6 +20,7 @@
         height: 100%;
         background-position: center;
         background-size: cover;
+        box-shadow: slategrey 0px 0px 10px;
     }
 
     h4 {
