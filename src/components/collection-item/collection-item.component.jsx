@@ -1,13 +1,19 @@
-import React from 'react'
-import { addBasketItem } from '../../redux/basket/basket.actions';
-import CustomButton from '../button/button.component';
-import './collection-item.styles.scss'
+// Utilities
+import React                        from 'react'
+import { addBasketItem }            from '../../redux/basket/basket.actions';
+
+// Components
+import CustomButton                 from '../button/button.component';
+import { 
+      CollectionItemContainer, 
+      CollectionItemBackground, 
+      CollectionItemInfo 
+}                                   from './collection-item.styles';
 
 const CollectionItem = ({imageUrl, item, name, price}) => {
       return (
-            <div className="item-tile">
-                  <div
-                        className="item-background"
+            <CollectionItemContainer>
+                  <CollectionItemBackground
                         style={{ backgroundImage: `url(${imageUrl})` }}
                   />
                   <CustomButton
@@ -19,11 +25,11 @@ const CollectionItem = ({imageUrl, item, name, price}) => {
                         {" "}
                         Add To Cart{" "}
                   </CustomButton>
-                  <div className="collection-item-info">
+                  <CollectionItemInfo>
                         <h4> {name} </h4>
                         <h4> {price} </h4>
-                  </div>
-            </div>
+                  </CollectionItemInfo>
+            </CollectionItemContainer>
       );
 };
       

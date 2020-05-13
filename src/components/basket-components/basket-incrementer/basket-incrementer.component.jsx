@@ -1,21 +1,29 @@
-import React from 'react'
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
-import './basket-incrementer.styles.scss'
-import { connect } from 'react-redux';
-import {adjustQuantity} from '../../../redux/basket/basket.actions'
+// Utilities
+import React                from 'react'
+import { connect }          from 'react-redux';
+import {adjustQuantity}     from '../../../redux/basket/basket.actions'
 
-const BasketQuantity = ({id, quantity, adjustQuantity}) => {
-    return (
-        <div className='quantity'>
-            <FontAwesomeIcon icon={faChevronLeft} className='icon' onClick={() => adjustQuantity({id, operation: '-'})}/>
-            <div className='number'>
-                <span>{quantity}</span>
-            </div>
-            <FontAwesomeIcon icon={faChevronRight} className='icon' onClick={() => adjustQuantity({id, operation: '+'})}/>
-        </div>
-    )
-}
+// Components
+import { 
+    QuantityNumber, 
+    QuantityIcon, 
+    QuantityContainer 
+}                           from './basket-incrementer.styles'
+import { 
+    faChevronLeft, 
+    faChevronRight 
+}                           from "@fortawesome/free-solid-svg-icons";
+
+const BasketQuantity = ({id, quantity, adjustQuantity}) => (
+    <QuantityContainer>
+        <QuantityIcon icon={faChevronLeft} onClick={() => adjustQuantity({id, operation: '-'})}/>
+        <QuantityNumber>
+            <span>{quantity}</span>
+        </QuantityNumber>
+        <QuantityIcon icon={faChevronRight} onClick={() => adjustQuantity({id, operation: '+'})}/>
+    </QuantityContainer>
+)
+
 
 const mapDispatchToProps = dispatch => ({
     adjustQuantity: quantity => dispatch(adjustQuantity(quantity))

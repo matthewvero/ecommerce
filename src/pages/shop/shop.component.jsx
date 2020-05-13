@@ -1,9 +1,12 @@
+// Utilities
 import React from 'react';
-import CollectionsOverview from '../../components/collections-overview/collections-overview.component';
 import { Route } from 'react-router-dom';
+
+// Components
+import CollectionsOverview from '../../components/collections-overview/collections-overview.component';
 import  CollectionPage  from '../../components/collection/collection.component';
 import {CSSTransitionGroup} from 'react-transition-group'
-import './shop.styles.scss'
+import { ShopPageContainer } from './shop.styles'
 const ShopPage = ({match}) => (
     <CSSTransitionGroup
                 transitionName="shop"
@@ -12,10 +15,10 @@ const ShopPage = ({match}) => (
                 transitionEnter={false}
                 transitionLeave={false}
             >
-            <div className='shopPage'>
-            <Route exact path={`${match.path}`} component={CollectionsOverview}/>
-            <Route path={`${match.path}/:collectionID`} component={CollectionPage}/>
-            </div>
+            <ShopPageContainer>
+                <Route exact path={`${match.path}`} component={CollectionsOverview}/>
+                <Route path={`${match.path}/:collectionID`} component={CollectionPage}/>
+            </ShopPageContainer>
     </CSSTransitionGroup>
 )
 

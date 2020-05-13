@@ -1,12 +1,15 @@
-import React, { Component } from "react";
-import "./signupform.styles.scss";
-import { FormInput } from "../form-input/form-input.component";
-// Custom form input, fuction can be changed
-import CustomButton from "../button/button.component";
-// Custom button, the function can be set dynamically
+// Utilities
+import React, { Component }         from "react";
 import { auth, createUserDocument } from "../../firebase/firebase.utils";
 // Auth utility import and create new user utility
 // so that we can save new users to our db
+
+// Components
+import CustomButton                 from "../button/button.component";
+// Custom button, the function can be set dynamically
+import { SignupFormContainer }      from './signupform.styles'
+import { FormInput }                from "../form-input/form-input.component";
+// Custom form input, fuction can be changed
 
 export default class SignUpForm extends Component {
     constructor(props) {
@@ -61,7 +64,7 @@ export default class SignUpForm extends Component {
 
     render() {
         return (
-            <div className="signup">
+            <SignupFormContainer>
                 <h2>I don't have an account</h2>
                 <p>Sign up with your email and password</p>
                 <form className="signupform" onSubmit={this.handleSubmit}>
@@ -95,7 +98,7 @@ export default class SignUpForm extends Component {
                     />
                     <CustomButton type="submit">Submit</CustomButton>
                 </form>
-            </div>
+            </SignupFormContainer>
         );
     }
 }

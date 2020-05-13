@@ -1,8 +1,12 @@
+// Utilities
 import React from 'react'
-import './sign-in-page.styles.scss'
+
+// Components
+import {SignInPageContainer} from './sign-in-page.styles'
 import SignInForm from '../../components/signinform/signinform.component'
 import SignUpForm from '../../components/signupform/signupform.component'
 import {CSSTransitionGroup} from 'react-transition-group'
+
 export const SignInPage = () => {
     return (
         <CSSTransitionGroup
@@ -13,10 +17,10 @@ export const SignInPage = () => {
                 transitionLeave={true}
                 transitionLeaveTimeout={100}
         >
-            <div className='signinpage'>
+            <SignInPageContainer>
                 <SignInForm></SignInForm>
                 <SignUpForm></SignUpForm>
-            </div>
+            </SignInPageContainer>
         </CSSTransitionGroup>
     )
 }

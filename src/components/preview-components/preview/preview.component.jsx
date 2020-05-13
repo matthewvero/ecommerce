@@ -1,18 +1,24 @@
-import React from 'react'
-import './preview.styles.scss'
-import {PreviewItem} from '../preview-index'
+// Utilities
+import React                    from 'react'
+// Components
+import { 
+    PreviewContainer, 
+    PreviewContainerContent,
+    PreviewContainerTitle
+}                               from './preview.styles'
+import {PreviewItem}            from '../preview-index'
 
 const Preview = ({title, items}) => (
-    <div className='preview-collection'>
-        <h1 className='title'>{title.toUpperCase()}</h1>
-        <div className='preview'>
+    <PreviewContainer>
+        <PreviewContainerTitle>{title.toUpperCase()}</PreviewContainerTitle>
+        <PreviewContainerContent>
             {items
             .filter((item, id) => id < 4)
             .map((item) => (
                 <PreviewItem key={item.id} {...item}/>
             ))}
-        </div>
-    </div>    
+        </PreviewContainerContent>
+    </PreviewContainer>    
 )
 
 export default Preview

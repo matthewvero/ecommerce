@@ -1,9 +1,13 @@
+// Utilities
 import React from 'react'
-import './basket-counter.styles.scss'
+
+// Components
+import {BasketCounterContainer} from './basket-counter.styles'
+
 export const BasketCounter = ({basketCount}) => {
     return (
-        <div className={`basket-counter ${basketCount > 0 ? null : 'hidden'}`}>
+        <BasketCounterContainer hidden={basketCount > 0 ? false : true}>
                 {basketCount}
-        </div>
+        </BasketCounterContainer>
     )
 }

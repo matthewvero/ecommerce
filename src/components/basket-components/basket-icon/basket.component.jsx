@@ -1,18 +1,21 @@
-import React from "react";
-import { connect } from "react-redux";
-import "./basket.styles.scss";
-
-import { setVisibility } from "../../../redux/basket/basket.actions";
+// Utilities
+import React                                from "react";
+import { connect }                          from "react-redux";
+import { createStructuredSelector }         from "reselect";
+// Actions
+import { setVisibility }                    from "../../../redux/basket/basket.actions";
+// Selectors
 import {
     selectBasketHidden,
     selectBasketItems,
     getBasketItemCount
-} from "../../../redux/basket/basket.reducer";
-import { BasketCounter, BasketWindow } from "../basket-index";
+}                                           from "../../../redux/basket/basket.reducer";
+// Components
+import { BasketCounter, BasketWindow }      from "../basket-index";
+import { faShoppingBasket }                 from "@fortawesome/free-solid-svg-icons";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faShoppingBasket } from "@fortawesome/free-solid-svg-icons";
-import { createStructuredSelector } from "reselect";
+//Styles
+import { BasketContainer, BasketIcon }      from './basket-icon.styles'
 
 const isBasketEmpty = (hidden, items) => {
     if (!hidden) {
@@ -26,9 +29,9 @@ const isBasketEmpty = (hidden, items) => {
 
 const Basket = ({ hidden, basketItems, itemCount, dispatch }) => {
     return (
-        <div className="basket-container">
-            <FontAwesomeIcon
-                className={`navItem ${isBasketEmpty(hidden, basketItems)}`}
+        <BasketContainer>
+            <BasketIcon
+                hidden={isBasketEmpty(hidden, basketItems)}
                 id="basket"
                 icon={faShoppingBasket}
                 onClick={() => dispatch(setVisibility())}
@@ -37,7 +40,7 @@ const Basket = ({ hidden, basketItems, itemCount, dispatch }) => {
             <BasketCounter basketCount={itemCount} />
 
             {hidden ? null : <BasketWindow />}
-        </div>
+        </BasketContainer>
     );
 };
 

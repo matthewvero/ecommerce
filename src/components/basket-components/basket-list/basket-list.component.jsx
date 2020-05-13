@@ -1,42 +1,28 @@
-import React from 'react'
-import { selectBasketItems } from "../../../redux/basket/basket.reducer";
-import { createStructuredSelector } from "reselect";
-import { connect } from 'react-redux';
-import './basket-list.component.scss';
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { faChevronUp,  faChevronDown} from "@fortawesome/free-solid-svg-icons";
-import { BasketItem } from '../basket-index';
+// Utilities
+import React                          from 'react'
+import { connect }                    from 'react-redux';
+import { selectBasketItems }          from "../../../redux/basket/basket.reducer";
+import { createStructuredSelector }   from "reselect";
+// Components
+import { BasketItem }                 from '../basket-index';
+import { BasketListContainer }        from './basket-list.styles'
+
 
 class BasketList extends React.Component {
-
-    constructor(props) {
-        super(props)
-        this.myRef = React.createRef()
-        this.state = {scrollTop: 0}
-      }
-      
-      onScroll = () => {
-        const scrollTop = this.myRef.current.scrollTop
-        this.setState({
-            scrollTop: scrollTop
+    checkoutify = (basketItemList, checkout) => {
+      if (checkout) {
+            return basketItemList.map(el => {
+              el.props.checkout = 'true'
         })
+      } else {
+        return null
       }
-
-      checkoutify = (basketItemList, checkout) => {
-          if (checkout) {
-              return basketItemList.map(el => {
-                el.props.checkout = 'true'
-          })
-        } else {
-          return null
-        }
-          
-      }
+    }
 
     render() {
-        const { basketItems, checkout} = this.props
+        const { basketItems, checkout } = this.props
         return (
-                <div className={`basket-list ${checkout ? 'checkout' : null}`} onScroll={this.onScroll} ref={this.myRef}>
+                <BasketListContainer checkout={checkout ? true : false} onScroll={this.onScroll} ref={this.myRef}>
                 {
                     basketItems.length ? 
                     basketItems.map(el => (
@@ -44,7 +30,7 @@ class BasketList extends React.Component {
                         )) 
                         : 'Basket Empty'
                 }
-                </div>
+                </BasketListContainer>
             )
         }
 }

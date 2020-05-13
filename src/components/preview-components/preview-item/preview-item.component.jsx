@@ -1,9 +1,16 @@
+// Utilities
 import React from "react";
-
-import "./preview-item.styles.scss";
-import { addBasketItem } from "../../../redux/basket/basket.actions";
 import { connect } from "react-redux";
+import { addBasketItem } from "../../../redux/basket/basket.actions";
+
+// Components
 import CustomButton from "../../button/button.component";
+import { 
+    PreviewItemContainer,
+    PreviewItemInfoContent,
+    PreviewItemInfo,
+    PreviewItemBackground    
+} from './preview-item.styles'
 
 const PreviewItem = ({ id, imageUrl, name, price, addBasketItem }) => {
     const item = {
@@ -14,10 +21,9 @@ const PreviewItem = ({ id, imageUrl, name, price, addBasketItem }) => {
         quantity: 1
     };
     return (
-        <div className="preview-tile">
-            <div
-                className="preview-background"
-                style={{ backgroundImage: `url(${imageUrl})` }}
+        <PreviewItemContainer>
+            <PreviewItemBackground
+                backgroundImage={`url(${imageUrl})`}
             />
             <CustomButton
                 inverted
@@ -26,13 +32,14 @@ const PreviewItem = ({ id, imageUrl, name, price, addBasketItem }) => {
                 onClick={() => addBasketItem(item)}
             >
                 {" "}
-                Add To Cart{" "}
+                Add To Cart
+                {" "}
             </CustomButton>
-            <div className="info">
-                <h4> {name} </h4>
-                <h4> {price} </h4>
-            </div>
-        </div>
+            <PreviewItemInfo>
+                <PreviewItemInfoContent> {name} </PreviewItemInfoContent>
+                <PreviewItemInfoContent> {price} </PreviewItemInfoContent>
+            </PreviewItemInfo>
+        </PreviewItemContainer>
     );
 };
 

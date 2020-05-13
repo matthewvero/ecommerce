@@ -1,42 +1,49 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { connect } from "react-redux";
-// Allows us to connect to the root reducer
-import "./header.styles.scss";
-import { ReactComponent as Logo } from "./crown.svg";
-// Allows us to use an svg
-import { auth } from "../../firebase/firebase.utils";
-// Gives access to the auth utilities.
-import { Basket } from "../basket-components/basket-index";
-import { selectCurrentUser } from "../../redux/user/user.reducer";
+// Uilities
+import React                        from "react";
 import { createStructuredSelector } from "reselect";
+import { connect }                  from "react-redux";
+// Allows us to connect to the root reducer
+import { auth }                     from "../../firebase/firebase.utils";
+// Gives access to the auth utilities.
+import { selectCurrentUser }        from "../../redux/user/user.reducer";
+
+// Components
+import { 
+    HeaderContainer,
+    HeaderLogo,
+    HeaderNavItem,
+    HeaderNavContainer,
+    HeaderNavLink 
+}                                   from './header.styles'
+
+import { Basket }                   from "../basket-components/basket-index";
 
 const Header = ({ currentUser }) => {
     return (
-        <div className="header">
-            <Link to="/">
-                <Logo className="logo"></Logo>
-            </Link>
-            <div className="navi">
-                <Link to="/shop" className="shop navItem">
+        <HeaderContainer>
+            <HeaderNavLink to="/">
+                <HeaderLogo className="logo"></HeaderLogo>
+            </HeaderNavLink>
+            <HeaderNavContainer>
+                <HeaderNavLink to="/shop" className="shop navItem">
                     SHOP
-                </Link>
-                <Link to="/contact" className="contact navItem">
+                </HeaderNavLink>
+                <HeaderNavLink to="/contact" className="contact navItem">
                     CONTACT
-                </Link>
+                </HeaderNavLink>
 
                 {currentUser !== null ? (
-                    <div onClick={() => auth.signOut()} className=" navItem">
+                    <HeaderNavItem onClick={() => auth.signOut()} >
                         SIGN OUT
-                    </div>
+                    </HeaderNavItem>
                 ) : (
-                    <Link to="/signin" className=" navItem">
+                    <HeaderNavLink to="/signin" className=" navItem">
                         SIGN IN
-                    </Link>
+                    </HeaderNavLink>
                 )}
                 <Basket />
-            </div>
-        </div>
+            </HeaderNavContainer>
+        </HeaderContainer>
     );
 };
 const mapStateToProps = createStructuredSelector({

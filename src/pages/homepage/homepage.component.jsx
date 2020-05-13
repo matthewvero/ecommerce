@@ -1,7 +1,11 @@
+// Utilites
 import React from 'react'
-import Directory from '../../components/directory/directory.component'
-import './homepage.styles.scss'
+
+// Components
 import {CSSTransitionGroup} from 'react-transition-group'
+import Directory from '../../components/directory/directory.component'
+import { HomepageContainer } from './homepage.styles'
+
 const HomePage = () => (
 
     <CSSTransitionGroup
@@ -12,9 +16,9 @@ const HomePage = () => (
                 transitionLeave={true}
                 transitionLeaveTimeout={100}
     >
-        <div className='homepage'>
+        <HomepageContainer>
             <Directory/>
-        </div>
+        </HomepageContainer>
     </CSSTransitionGroup>
     
 )

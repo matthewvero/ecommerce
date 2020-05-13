@@ -1,11 +1,20 @@
-import React, { Component } from "react";
-import "./signinform.styles.scss";
-import { FormInput } from "../form-input/form-input.component";
-// Custom form input, fuction can be changed
-import CustomButton from "../button/button.component";
-//Custom button component, function can be changed to suit needs
-import { signInWithGoogle, auth } from "../../firebase/firebase.utils";
+// Utilities
+import React, { Component }         from "react";
+import { signInWithGoogle, auth }   from "../../firebase/firebase.utils";
 // Allows us to use auth utilities to sign in with google
+
+// Components
+import CustomButton                 from "../button/button.component";
+//Custom button component, function can be changed to suit needs
+import {
+    SignInFormContainer,
+    SignInFormComponent,
+    SignInFormButtonContainer
+    
+
+}        from './signinform.styles'
+import { FormInput }                from "../form-input/form-input.component";
+// Custom form input, fuction can be changed
 
 export default class SignInForm extends Component {
     constructor(props) {
@@ -41,11 +50,11 @@ export default class SignInForm extends Component {
 
     render() {
         return (
-            <div className="signin">
+            <SignInFormContainer>
                 <h2>I already have an account</h2>
                 <p>Sign in with your email and password</p>
 
-                <form className="signinform" onSubmit={this.handleSubmit}>
+                <SignInFormComponent onSubmit={this.handleSubmit}>
                     <FormInput
                         name="email"
                         type="email"
@@ -60,17 +69,17 @@ export default class SignInForm extends Component {
                         value={this.state.password}
                         label="Password"
                     />
-                    <div className="signinbuttons">
+                    <SignInFormButtonContainer>
                         <CustomButton type="submit">SIGN IN</CustomButton>
                         <CustomButton
                             onClick={signInWithGoogle}
-                            isGoogleSignIn={true}
+                            isGoogleSignIn
                         >
                             SIGN IN WITH GOOGLE
                         </CustomButton>
-                    </div>
-                </form>
-            </div>
+                    </SignInFormButtonContainer>
+                </SignInFormComponent>
+            </SignInFormContainer>
         );
     }
 }

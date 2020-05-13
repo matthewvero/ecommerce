@@ -1,14 +1,17 @@
-import React from 'react'
-import { BasketList, BasketTotal } from '../../components/basket-components/basket-index'
-import './checkout.styles.scss'
-import StripeCheckOutButton from '../../components/stripe-button/stripe-button.component'
-import { getBasketTotal } from '../../redux/basket/basket.reducer'
-import { connect } from 'react-redux'
+// Utilities
+import React                        from 'react'
+import { connect }                  from 'react-redux'
+import { getBasketTotal }           from '../../redux/basket/basket.reducer'
+
+// Components
+import { BasketList, BasketTotal }  from '../../components/basket-components/basket-index'
+import {CheckoutContainer}          from './checkout.styles'
+import StripeCheckOutButton         from '../../components/stripe-button/stripe-button.component'
 
 
 const Checkout = ({total}) => {
     return (
-        <div className='checkout'>
+        <CheckoutContainer>
             <div className='headings'>
                 <span>Product</span>
                 <span>Description</span>
@@ -19,7 +22,7 @@ const Checkout = ({total}) => {
             <BasketList checkout={true}/>
             <BasketTotal className='total'/>
             <StripeCheckOutButton price={total}/>
-        </div>
+        </CheckoutContainer>
     )
 }
 

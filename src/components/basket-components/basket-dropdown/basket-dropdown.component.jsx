@@ -1,11 +1,16 @@
-import React from "react";
-import { withRouter } from "react-router-dom";
-import "./basket-window.styles.scss";
-import CustomButton from "../../button/button.component";
-import { BasketList } from "../basket-index";
-import { connect } from "react-redux";
-import { setVisibility } from "../../../redux/basket/basket.actions";
-import { CSSTransitionGroup } from "react-transition-group";
+// Utilties
+import React                        from "react";
+import { withRouter }               from "react-router-dom";
+import { connect }                  from "react-redux";
+import { setVisibility }            from "../../../redux/basket/basket.actions";
+
+// Components
+import { BasketDropdownContainer }  from './basket-dropdown.styles'
+import CustomButton                 from "../../button/button.component";
+import { BasketList }               from "../basket-index";
+import { CSSTransitionGroup }       from "react-transition-group";
+
+
 export class BasketWindow extends React.Component {
     handleClick = () => {
         this.props.dispatch(setVisibility());
@@ -22,7 +27,7 @@ export class BasketWindow extends React.Component {
                 transitionLeave={true}
                 transitionLeaveTimeout={100}
             >
-                <div className="basket-menu">
+                <BasketDropdownContainer>
                     <BasketList />
                     <CustomButton
                         inverted
@@ -31,7 +36,7 @@ export class BasketWindow extends React.Component {
                     >
                         Go To checkout
                     </CustomButton>
-                </div>
+                </BasketDropdownContainer>
             </CSSTransitionGroup>
         );
     }
