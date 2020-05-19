@@ -6,6 +6,7 @@ import {CSSTransitionGroup} from 'react-transition-group'
 import Directory from '../../components/directory/directory.component'
 import { HomepageContainer } from './homepage.styles'
 
+
 const HomePage = () => (
 
     <CSSTransitionGroup
@@ -20,6 +21,8 @@ const HomePage = () => (
             <Directory/>
         </HomepageContainer>
     </CSSTransitionGroup>
+
+    
     
 )
 

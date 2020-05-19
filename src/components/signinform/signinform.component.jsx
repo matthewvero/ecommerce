@@ -70,7 +70,7 @@ export default class SignInForm extends Component {
                         label="Password"
                     />
                     <SignInFormButtonContainer>
-                        <CustomButton type="submit">SIGN IN</CustomButton>
+                        <CustomButton type="submit" >SIGN IN</CustomButton>
                         <CustomButton
                             onClick={signInWithGoogle}
                             isGoogleSignIn

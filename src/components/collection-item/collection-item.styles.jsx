@@ -36,4 +36,5 @@ export const CollectionItemBackground = styled.div`
     height: 100%;
     background-position: center;
     background-size: cover;
+    box-shadow: slategrey 0px 0px 10px;
 `

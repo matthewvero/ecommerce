@@ -8,7 +8,7 @@ export const SignInFormContainer = styled.div`
 
 `
 
-export const SignInFormComponent = styled.div`
+export const SignInFormComponent = styled.form`
       display: flex;
       flex-direction: column;
 `

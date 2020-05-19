@@ -53,6 +53,36 @@ export const createUserDocument = async (userAuth, additionalData) => {
     //return userRef so that the information can be used for other stuff.
 };
 
+export const addCollectionsAndDocuments = async (key, dataToAdd) => {
+
+    const collectionRef = firestore.collection(key)
+    
+    const batch = firestore.batch()
+
+    dataToAdd.forEach(obj => {
+        const newDocRef = collectionRef.doc()
+        batch.set(newDocRef, obj)
+    })
+
+    return await batch.commit()
+}
+
+export const convertCollectionsSnapshotToMap = (collections) => {
+    const transformedCollection = collections.docs.map(doc => {
+        const {title, items} = doc.data()
+        return {
+            routeName: encodeURI(title.toLowerCase()),
+            id: doc.id,
+            title,
+            items
+        }
+    })
+    return transformedCollection.reduce((acc, collection) => {
+        acc[collection.title.toLowerCase()] = collection
+        return acc
+    }, {})
+}
+
 export const firestore = firebase.firestore();
 //Gives us access to the firestore utilites in other modules
 const provider = new firebase.auth.GoogleAuthProvider();
