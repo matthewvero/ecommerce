@@ -85,8 +85,10 @@ export const convertCollectionsSnapshotToMap = (collections) => {
 
 export const firestore = firebase.firestore();
 //Gives us access to the firestore utilites in other modules
+
 const provider = new firebase.auth.GoogleAuthProvider();
 provider.setCustomParameters({ prompt: "select_account" });
+
 export const signInWithGoogle = () => auth.signInWithPopup(provider);
 // Sign in with google set up
 
