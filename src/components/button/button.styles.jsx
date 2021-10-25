@@ -18,6 +18,7 @@ const styleSheets = {
         bottom: 15%;
         display: none;
         background-color: white;
+        box-shadow: none;
     `,
     isGoogleSignIn: css`
         background-color: cornflowerblue;
@@ -37,6 +38,8 @@ const customButtonStyle = css`
     cursor: pointer;
     font-size: 0.9rem;
     outline: none;
+    box-shadow: none;
+    border-radius: 6px;
     &:hover {
         background-color: #00000000;
         color: black;
@@ -53,6 +56,9 @@ const invertedButtonStyle = css`
     cursor: pointer;
     font-size: 0.9rem;
     outline: none;
+    border-radius: 6px;
+    border: none;
+    box-shadow: 0px 0px 2px 1px #333333;
     &:hover {
         background-color: black;
         color: white;
@@ -69,7 +75,7 @@ const getButtonStyle = props => {
     return buttonStyles
 }
 // Checks if each prop matches a style in the style sheet
-// Matching styles will be append
+// Matching styles will be appended
 
 export const ButtonContainer = styled.button`
     ${props => getButtonStyle(props)}

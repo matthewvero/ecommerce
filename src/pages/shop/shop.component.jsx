@@ -1,10 +1,9 @@
 // Utilities
 import React, {useState, useEffect} from 'react';
-import { Route, useHistory } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import { firestore, convertCollectionsSnapshotToMap } from '../../firebase/firebase.utils'
 import { updateCollections } from '../../redux/shop/shop.actions'
 import { useDispatch,  } from 'react-redux';
-
 
 // Components
 import CollectionsOverview from '../../components/collections-overview/collections-overview.component';
@@ -19,7 +18,7 @@ const CollectionPageWithSpinner = WithSpinner(CollectionPage)
 const ShopPage = () => {
     const [loading, setLoading] = useState(true);
     const dispatch = useDispatch();
-    const history = useHistory();
+
     useEffect(()=> {
         const collectionRef = firestore.collection('collections')
         const unsub = collectionRef.onSnapshot(async snapshot => {
@@ -40,12 +39,12 @@ const ShopPage = () => {
                 transitionLeave={false}
             >
             <ShopPageContainer>
-                <Route exact path={`${history.location.pathname}`} 
+                <Route exact path={'/shop'} 
                     render={(props) => 
                         <CollectionsOverviewWithSpinner isLoading={loading} {...props}/>
                     }
                 />
-                <Route path={`${history.location.pathname}/:collectionID`} 
+                <Route path={`/shop/:collectionID`} 
                     render={(props) => 
                         <CollectionPageWithSpinner isLoading={loading} {...props}/>
                     }
