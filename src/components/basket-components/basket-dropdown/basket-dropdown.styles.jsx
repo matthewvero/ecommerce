@@ -10,12 +10,12 @@ export const BasketDropdownContainer = styled.div`
       right: 80px;
       z-index: 1;
       background-color: white;
-      &.example-appear {
+      &.basket-dropdown-appear {
             opacity: 0;
             transform: scaleY(0);
             transform-origin: top;
       }
-      &.example-appear.example-appear-active {
+      &.basket-dropdown-appear.basket-dropdown-appear-active {
             opacity: 1;
             transform: scaleY(1);
             transition: transform 0.1s ease-in;

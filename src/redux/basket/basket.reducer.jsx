@@ -60,6 +60,7 @@ export const getBasketItemCount = createSelector (
         if (basketItems.length > 0){
             return basketItems.reduce((acc, cur) => acc += cur.quantity, 0)
         }
+        else return 0;
     }
 )
 

@@ -1,6 +1,6 @@
 // Utilities
 import React from "react";
-import { connect } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addBasketItem } from "../../../redux/basket/basket.actions";
 
 // Components
@@ -12,7 +12,7 @@ import {
     PreviewItemBackground    
 } from './preview-item.styles'
 
-const PreviewItem = ({ id, imageUrl, name, price, addBasketItem }) => {
+const PreviewItem = ({ id, imageUrl, name, price }) => {
     const item = {
         id,
         imageUrl,
@@ -20,6 +20,8 @@ const PreviewItem = ({ id, imageUrl, name, price, addBasketItem }) => {
         price,
         quantity: 1
     };
+    const dispatch = useDispatch();
+
     return (
         <PreviewItemContainer>
             <PreviewItemBackground
@@ -29,7 +31,7 @@ const PreviewItem = ({ id, imageUrl, name, price, addBasketItem }) => {
                 inverted
                 cartButton
                 addToCart
-                onClick={() => addBasketItem(item)}
+                onClick={() => dispatch(addBasketItem(item))}
             >
                 {" "}
                 Add To Cart
@@ -37,14 +39,12 @@ const PreviewItem = ({ id, imageUrl, name, price, addBasketItem }) => {
             </CustomButton>
             <PreviewItemInfo>
                 <PreviewItemInfoContent> {name} </PreviewItemInfoContent>
-                <PreviewItemInfoContent> {price} </PreviewItemInfoContent>
+                <PreviewItemInfoContent> £{price} </PreviewItemInfoContent>
             </PreviewItemInfo>
         </PreviewItemContainer>
     );
 };
 
-const mapDispatchToProps = dispatch => ({
-    addBasketItem: item => dispatch(addBasketItem(item))
-});
 
-export default connect(null, mapDispatchToProps)(PreviewItem);
+
+export default PreviewItem;

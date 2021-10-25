@@ -1,7 +1,6 @@
 // Utilities
-import React                                from "react";
-import { connect }                          from "react-redux";
-import { createStructuredSelector }         from "reselect";
+import React  , {useEffect}                              from "react";
+import { useDispatch, useSelector }             from "react-redux";
 // Actions
 import { setVisibility }                    from "../../../redux/basket/basket.actions";
 // Selectors
@@ -27,7 +26,14 @@ const isBasketEmpty = (hidden, items) => {
     }
 };
 
-const Basket = ({ hidden, basketItems, itemCount, dispatch }) => {
+const Basket = () => {
+    const dispatch = useDispatch();
+    const hidden = useSelector(selectBasketHidden);
+    const basketItems = useSelector(selectBasketItems);
+    const itemCount = useSelector(getBasketItemCount);
+    useEffect(() => {
+        console.log(itemCount)
+    }, [itemCount])
     return (
         <BasketContainer>
             <BasketIcon
@@ -44,10 +50,5 @@ const Basket = ({ hidden, basketItems, itemCount, dispatch }) => {
     );
 };
 
-const mapStateToProps = createStructuredSelector({
-    hidden: selectBasketHidden,
-    basketItems: selectBasketItems,
-    itemCount: getBasketItemCount
-});
 
-export default connect(mapStateToProps)(Basket);
+export default Basket;

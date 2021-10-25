@@ -1,6 +1,6 @@
 // Utilities
 import React                    from 'react'
-import { connect }              from 'react-redux'
+import { useSelector }              from 'react-redux'
 import { getBasketTotal }       from '../../../redux/basket/basket.reducer'
 
 // Components
@@ -9,8 +9,8 @@ import {
     BasketTotalDigits 
 }                               from './basket-total.styles'
 
-const BasketTotal = ({basketTotal}) => {
-
+const BasketTotal = () => {
+    const basketTotal = useSelector(getBasketTotal);
     let total = (
         <BasketTotalContainer>
             <BasketTotalDigits>TOTAL: £{basketTotal}</BasketTotalDigits>
@@ -20,8 +20,4 @@ const BasketTotal = ({basketTotal}) => {
     return (basketTotal > 0 ? total : null)
 }
 
-const mapStateToProps = (state) => ({
-    basketTotal: getBasketTotal(state)
-})
-
-export default connect(mapStateToProps)(BasketTotal) 
+export default BasketTotal

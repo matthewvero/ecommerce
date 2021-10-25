@@ -1,9 +1,9 @@
 // Utilities
-import React from 'react';
-import { Route } from 'react-router-dom';
+import React, {useState, useEffect} from 'react';
+import { Route, useHistory } from 'react-router-dom';
 import { firestore, convertCollectionsSnapshotToMap } from '../../firebase/firebase.utils'
 import { updateCollections } from '../../redux/shop/shop.actions'
-import { connect } from 'react-redux';
+import { useDispatch,  } from 'react-redux';
 
 
 // Components
@@ -16,52 +16,43 @@ import { WithSpinner } from '../../components/with-spinner/with-spinner.componen
 const CollectionsOverviewWithSpinner = WithSpinner(CollectionsOverview)
 const CollectionPageWithSpinner = WithSpinner(CollectionPage)
 
-class ShopPage extends React.Component {
-    state = {
-        loading: true
-    }
-    unsubscribeFromSnapshot = null;
-    componentDidMount() {
+const ShopPage = () => {
+    const [loading, setLoading] = useState(true);
+    const dispatch = useDispatch();
+    const history = useHistory();
+    useEffect(()=> {
         const collectionRef = firestore.collection('collections')
-
-        collectionRef.onSnapshot(async snapshot => {
-            this.props.updateCollection(convertCollectionsSnapshotToMap(snapshot))
-            this.setState({loading: false})
+        const unsub = collectionRef.onSnapshot(async snapshot => {
+            dispatch(updateCollections(convertCollectionsSnapshotToMap(snapshot)));
+            setLoading(false);
         })
+        return () => {
+            unsub();
+        }
+    }, [dispatch])
 
-    }
+    return (
+        <CSSTransitionGroup
+                transitionName="shop"
+                transitionAppear={true}
+                transitionAppearTimeout={200}
+                transitionEnter={false}
+                transitionLeave={false}
+            >
+            <ShopPageContainer>
+                <Route exact path={`${history.location.pathname}`} 
+                    render={(props) => 
+                        <CollectionsOverviewWithSpinner isLoading={loading} {...props}/>
+                    }
+                />
+                <Route path={`${history.location.pathname}/:collectionID`} 
+                    render={(props) => 
+                        <CollectionPageWithSpinner isLoading={loading} {...props}/>
+                    }
+                />
+            </ShopPageContainer>
+        </CSSTransitionGroup>
+    )
+};
 
-    render() {
-        const { match } = this.props
-        const { loading } = this.state
-        return (
-            <CSSTransitionGroup
-                        transitionName="shop"
-                        transitionAppear={true}
-                        transitionAppearTimeout={200}
-                        transitionEnter={false}
-                        transitionLeave={false}
-                    >
-                    <ShopPageContainer>
-                        <Route exact path={`${match.path}`} 
-                            render={(props) => 
-                                <CollectionsOverviewWithSpinner isLoading={loading} {...props}/>
-                            }
-                        />
-                        <Route path={`${match.path}/:collectionID`} 
-                            render={(props) => 
-                                <CollectionPageWithSpinner isLoading={loading} {...props}/>
-                            }
-                        />
-                    </ShopPageContainer>
-            </CSSTransitionGroup>
-        )
-    }
-}
-
-const mapDispatchToProps = dispatch => ({
-    updateCollection: collections => dispatch(updateCollections(collections))
-})
-
-
-export default connect(null, mapDispatchToProps)(ShopPage);
+export default ShopPage;

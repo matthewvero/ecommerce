@@ -1,5 +1,5 @@
 // Utilities
-import React, { Component }         from "react";
+import React, { useState }         from "react";
 import { signInWithGoogle, auth }   from "../../firebase/firebase.utils";
 // Allows us to use auth utilities to sign in with google
 
@@ -16,17 +16,11 @@ import {
 import { FormInput }                from "../form-input/form-input.component";
 // Custom form input, fuction can be changed
 
-export default class SignInForm extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            email: "",
-            password: ""
-        };
-    }
-
-    handleSubmit = async event => {
-        const { email, password } = this.state;
+const SignInForm = () => {
+    const initialState = {email: '', password: ''};
+    const [state, setState] = useState(initialState);
+    const handleSubmit = async event => {
+        const {email, password} = state;
         // Destructure state
         event.preventDefault();
         // prevent Default form behaviour
@@ -34,39 +28,38 @@ export default class SignInForm extends Component {
             await auth.signInWithEmailAndPassword(email, password);
             // Use auth utility from firebase
             // to sign in using email and password
-            this.setState({ email: "", password: "" });
+            setState(initialState);
             //Reset state
         } catch (error) {
             alert(error);
         }
     };
 
-    handleChange = event => {
+     const handleChange = event => {
         const { value, name } = event.target;
         // Destructure the value of the target input + name
-        this.setState({ [name]: value });
+        setState(state => ({...state, [name]: value }));
         // User bracket notation to dynamically set the
     };
 
-    render() {
-        return (
+    return (
             <SignInFormContainer>
                 <h2>I already have an account</h2>
                 <p>Sign in with your email and password</p>
 
-                <SignInFormComponent onSubmit={this.handleSubmit}>
+                <SignInFormComponent onSubmit={handleSubmit}>
                     <FormInput
                         name="email"
                         type="email"
-                        handleChange={this.handleChange}
-                        value={this.state.email}
+                        handleChange={handleChange}
+                        value={state.email}
                         label="Email"
                     />
                     <FormInput
                         name="password"
                         type="password"
-                        handleChange={this.handleChange}
-                        value={this.state.password}
+                        handleChange={handleChange}
+                        value={state.password}
                         label="Password"
                     />
                     <SignInFormButtonContainer>
@@ -81,5 +74,6 @@ export default class SignInForm extends Component {
                 </SignInFormComponent>
             </SignInFormContainer>
         );
-    }
-}
+};
+
+export default SignInForm;

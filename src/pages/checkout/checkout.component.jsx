@@ -1,6 +1,6 @@
 // Utilities
 import React                        from 'react'
-import { connect }                  from 'react-redux'
+import { useSelector }                  from 'react-redux'
 import { getBasketTotal }           from '../../redux/basket/basket.reducer'
 
 // Components
@@ -9,7 +9,8 @@ import {CheckoutContainer}          from './checkout.styles'
 import StripeCheckOutButton         from '../../components/stripe-button/stripe-button.component'
 
 
-const Checkout = ({total}) => {
+const Checkout = () => {
+    const total = useSelector(getBasketTotal);
     return (
         <CheckoutContainer>
             <div className='headings'>
@@ -26,8 +27,6 @@ const Checkout = ({total}) => {
     )
 }
 
-const mapState = (state) => ({
-    total: getBasketTotal(state)
-})
 
-export default connect(mapState)(Checkout)
+
+export default Checkout;

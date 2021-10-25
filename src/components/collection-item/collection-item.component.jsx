@@ -1,7 +1,7 @@
 // Utilities
 import React                        from 'react'
 import { addBasketItem }            from '../../redux/basket/basket.actions';
-
+import {useDispatch}                from 'react-redux'
 // Components
 import CustomButton                 from '../button/button.component';
 import { 
@@ -10,7 +10,9 @@ import {
       CollectionItemInfo 
 }                                   from './collection-item.styles';
 
-const CollectionItem = ({imageUrl, item, name, price}) => {
+const CollectionItem = (item) => {
+      const {imageUrl, name, price} = item;
+      const dispatch = useDispatch();
       return (
             <CollectionItemContainer>
                   <CollectionItemBackground
@@ -20,14 +22,14 @@ const CollectionItem = ({imageUrl, item, name, price}) => {
                         inverted
                         cartButton
                         addToCart
-                        onClick={() => addBasketItem(item)}
+                        onClick={() => dispatch(addBasketItem(item))}
                         >
                         {" "}
                         Add To Cart{" "}
                   </CustomButton>
                   <CollectionItemInfo>
                         <h4> {name} </h4>
-                        <h4> {price} </h4>
+                        <h4> £{price} </h4>
                   </CollectionItemInfo>
             </CollectionItemContainer>
       );
@@ -35,4 +37,4 @@ const CollectionItem = ({imageUrl, item, name, price}) => {
       
 
 
-export default CollectionItem
+export default CollectionItem;

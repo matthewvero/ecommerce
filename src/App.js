@@ -10,88 +10,35 @@ import Header from "./components/header/header.component";
 // Import Header component
 import { SignInPage } from "./pages/signin/sign-in-page.component";
 // Import sign in page component
-import { auth, createUserDocument } from "../src/firebase/firebase.utils";
-// Gives us access to the firebase auth, which controls auth and auth methods
-import { connect } from "react-redux";
-import { setCurrentUser } from "./redux/user/user.actions";
-import { selectCurrentUser } from "./redux/user/user.reducer";
-import { createStructuredSelector } from "reselect";
 
-import { selectCollectionsForPreview } from './redux/shop/shop.reducer'
+import { useSelector } from "react-redux";
 
-class App extends React.Component {
-    unsubscribeFromAuth = null;
-    
-    componentDidMount() {
-        
-        const { setCurrentUser } = this.props;
-        // Destructuring setCurrentUser from props
+import {useAuthListener} from './hooks/auth-hooks'
 
+const App = () => {
+    useAuthListener();
+    const currentUser = useSelector(state => state.user.currentUser);
+    return (
+        <div className="App">
+            <Header />
+            <Switch>
+                <Route exact path="/" component={HomePage} />
+                <Route path="/shop" component={ShopPage} />
+                <Route
+                    exact
+                    path="/signin"
+                    render={() =>
+                        currentUser ? (
+                            <Redirect to="/" />
+                        ) : (
+                            <SignInPage />
+                        )
+                    }
+                />
+                <Route exact path="/checkout" component={Checkout}/>
+            </Switch>
+        </div>
+    );
+};
 
-        this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
-            // Listens for change in auth state
-            if (userAuth) {
-                const userRef = await createUserDocument(userAuth);
-                // If a new user has been created adds it to database
-                // Once complete or if user exists, returns userRef
-                userRef.onSnapshot(snapShot => {
-                    // Listens for change in user data
-                    setCurrentUser(
-                        {
-                            id: snapShot.id,
-                            ...snapShot.data()
-                        },
-                        // Sets current user information
-                        // Using data from firestore
-                        () => console.log(this.state)
-                    );
-                });
-            } else {
-                setCurrentUser(userAuth);
-                // If no user then sets user to null
-            }
-        });
-    }
-
-    componentWillUnmount() {
-        this.unsubscribeFromAuth();
-        // Ensures no memory leaks
-    }
-
-    render() {
-        return (
-            <div className="App">
-                <Header />
-                <Switch>
-                    <Route exact path="/" component={HomePage} />
-                    <Route path="/shop" component={ShopPage} />
-                    <Route
-                        exact
-                        path="/signin"
-                        render={() =>
-                            this.props.currentUser ? (
-                                <Redirect to="/" />
-                            ) : (
-                                <SignInPage />
-                            )
-                        }
-                    />
-                    <Route exact path="/checkout" component={Checkout}/>
-                </Switch>
-            </div>
-        );
-    }
-}
-
-const mapStateToProps = createStructuredSelector({
-    currentUser: selectCurrentUser,
-    collectionData: selectCollectionsForPreview
-});
-
-const mapDispatchToProps = dispatch => ({
-    setCurrentUser: user => dispatch(setCurrentUser(user))
-}); // Here we are creating a function that dispatches
-// The value returned from our setCurrentUser action
-// To the reducers and by extension the store.
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default App;

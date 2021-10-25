@@ -1,7 +1,6 @@
 // Uilities
 import React                        from "react";
-import { createStructuredSelector } from "reselect";
-import { connect }                  from "react-redux";
+import { useSelector }                  from "react-redux";
 // Allows us to connect to the root reducer
 import { auth }                     from "../../firebase/firebase.utils";
 // Gives access to the auth utilities.
@@ -18,7 +17,8 @@ import {
 
 import { Basket }                   from "../basket-components/basket-index";
 
-const Header = ({ currentUser }) => {
+const Header = () => {
+    const currentUser = useSelector(selectCurrentUser);
     return (
         <HeaderContainer>
             <HeaderNavLink to="/">
@@ -46,12 +46,10 @@ const Header = ({ currentUser }) => {
         </HeaderContainer>
     );
 };
-const mapStateToProps = createStructuredSelector({
-    currentUser: selectCurrentUser
-});
+
 // This tells connect which data it needs to retrieve
 // and return from the root reducer
-export default connect(mapStateToProps)(Header);
+export default Header;
 // This uses the mapStateToProps to find which data is needed.
 // It then retrieves it from the root reducer and then it then maps it to the
 // props of the component passed as the second argument

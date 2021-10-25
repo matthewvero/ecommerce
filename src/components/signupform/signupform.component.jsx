@@ -1,5 +1,5 @@
 // Utilities
-import React, { Component }         from "react";
+import React, { useState }         from "react";
 import { auth, createUserDocument } from "../../firebase/firebase.utils";
 // Auth utility import and create new user utility
 // so that we can save new users to our db
@@ -11,21 +11,14 @@ import { SignupFormContainer }      from './signupform.styles'
 import { FormInput }                from "../form-input/form-input.component";
 // Custom form input, fuction can be changed
 
-export default class SignUpForm extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            displayName: "",
-            email: "",
-            password: "",
-            confirmpassword: ""
-        };
-    }
+const SignUpForm = () => {
+    const initialState = {email: '',  password: '', confirmpassword: '', displayName: ''}
+    const [state, setState] = useState(initialState);
 
-    handleSubmit = async event => {
+    const handleSubmit = async event => {
+        const {email, password, confirmpassword, displayName} = state;
         event.preventDefault();
         // Prevents default form from doing anything
-        const { displayName, email, password, confirmpassword } = this.state;
         // Destructure state
         if (password !== confirmpassword) {
             alert("Passwords don't match");
@@ -43,62 +36,56 @@ export default class SignUpForm extends Component {
             await createUserDocument(user, { displayName });
             // Pass user profile to this to save it to firestore db
 
-            this.setState({
-                displayName: "",
-                email: "",
-                password: "",
-                confirmpassword: ""
-            });
+            setState(initialState);
             // reset state
         } catch (error) {
             console.log("error", error.message);
         }
     };
-
-    handleChange = event => {
+    const handleChange = event => {
         const { value, name } = event.target;
         // Destructure the value of the target input + name
-        this.setState({ [name]: value });
+        setState(state => ({...state, [name]: value }));
         // User bracket notation to dynamically set the
     };
 
-    render() {
-        return (
+    return (
             <SignupFormContainer>
                 <h2>I don't have an account</h2>
                 <p>Sign up with your email and password</p>
-                <form className="signupform" onSubmit={this.handleSubmit}>
+                <form className="signupform" onSubmit={handleSubmit}>
                     <FormInput
                         name="displayName"
                         type="text"
-                        handleChange={this.handleChange}
-                        value={this.state.displayName}
+                        handleChange={handleChange}
+                        value={state.displayName}
                         label="Name"
                     />
                     <FormInput
                         name="email"
                         type="email"
-                        handleChange={this.handleChange}
-                        value={this.state.email}
+                        handleChange={handleChange}
+                        value={state.email}
                         label="Email"
                     />
                     <FormInput
                         name="password"
                         type="password"
-                        handleChange={this.handleChange}
-                        value={this.state.password}
+                        handleChange={handleChange}
+                        value={state.password}
                         label="Password"
                     />
                     <FormInput
                         name="confirmpassword"
                         type="password"
-                        handleChange={this.handleChange}
-                        value={this.state.confirmpassword}
+                        handleChange={handleChange}
+                        value={state.confirmpassword}
                         label="ConfirmPassword"
                     />
                     <CustomButton type="submit">Submit</CustomButton>
                 </form>
             </SignupFormContainer>
         );
-    }
-}
+};
+
+export default SignUpForm;
